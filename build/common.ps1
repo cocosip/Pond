@@ -11,7 +11,7 @@ Write-Host("rootPath:"+$rootPath)
 
 # List of solutions used only in development mode
 $solutionPaths = @(
-		"../src"
+		"../"
 #		"../modules/identity"
 #		"../modules/permission-management",
 	)
