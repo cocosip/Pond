@@ -2,12 +2,12 @@
 
 namespace Pond
 {
-    public class PoolFile : IEquatable<PoolFile>
+    public class PondFile : IEquatable<PondFile>
     {
         /// <summary>
         /// The name of file pool
         /// </summary>
-        public string FilePool { get; set; }
+        public string FilePoolName { get; set; }
 
         /// <summary>
         /// The index of worker
@@ -31,19 +31,19 @@ namespace Pond
         }
 
 
-        public PoolFile()
+        public PondFile()
         {
 
         }
 
-        public PoolFile(string filePool, int worker) : this(filePool, worker, string.Empty)
+        public PondFile(string filePool, int worker) : this(filePool, worker, string.Empty)
         {
 
         }
 
-        public PoolFile(string filePool, int worker, string path)
+        public PondFile(string filePool, int worker, string path)
         {
-            FilePool = filePool;
+            FilePoolName = filePool;
             Worker = worker;
             Path = path;
         }
@@ -52,9 +52,9 @@ namespace Pond
         /// Clone
         /// </summary>
         /// <returns></returns>
-        public PoolFile Clone()
+        public PondFile Clone()
         {
-            return new PoolFile(FilePool, Worker, Path);
+            return new PondFile(FilePoolName, Worker, Path);
         }
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace Pond
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(PoolFile other)
+        public bool Equals(PondFile other)
         {
             if (other == null)
             {
                 return false;
             }
 
-            return FilePool == other.FilePool && Worker == other.Worker && Path == other.Path;
+            return FilePoolName == other.FilePoolName && Worker == other.Worker && Path == other.Path;
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Pond
                 return false;
             }
 
-            return obj is PoolFile other && Equals(other);
+            return obj is PondFile other && Equals(other);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Pond
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return StringComparer.InvariantCulture.GetHashCode(FilePool) | StringComparer.InvariantCulture.GetHashCode(Path) | Worker.GetHashCode();
+            return StringComparer.InvariantCulture.GetHashCode(FilePoolName) | StringComparer.InvariantCulture.GetHashCode(Path) | Worker.GetHashCode();
         }
     }
 }

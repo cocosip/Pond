@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pond
 {
@@ -12,7 +9,6 @@ namespace Pond
 
     public class FilePool : IFilePool
     {
-
         protected ILogger Logger { get; }
         public FilePool(ILogger<FilePool> logger)
         {
@@ -20,7 +16,13 @@ namespace Pond
         }
 
 
-        public void Run()
+        public void Start()
+        {
+
+        }
+
+
+        public void Shutdown()
         {
 
         }
