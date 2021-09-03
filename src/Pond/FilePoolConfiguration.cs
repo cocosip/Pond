@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Pond
 {
@@ -6,63 +8,35 @@ namespace Pond
     public class FilePoolConfiguration
     {
         /// <summary>
-        /// FilePool name
+        /// 文件池的名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// FilePool storage path
+        /// 文件池的存储路径
         /// </summary>
         public string Path { get; set; }
 
         /// <summary>
-        /// Each worker max file count
+        /// 每个Worker下存储的最大的文件数量,当超过该值的时候,将不会进行写入。默认:5000个
         /// </summary>
         public int WorkerMaxFile { get; set; } = 5000;
 
         /// <summary>
-        /// Enable file watcher
+        /// 是否开启自动归还文件的操作,当开启之后,如果没有主动调用释放文件的方法,在超过指定的时间后<see cref="AutoReturnSeconds"/>,将会自动归还(重新放到队列中)。 默认:false
         /// </summary>
-        public int EnableFileWatcher { get; set; }
+        public bool EnableAutoReturn { get; set; } = false;
 
         /// <summary>
-        /// File watcher path
+        /// 自动归还的时间,以秒为单位。默认:300秒
         /// </summary>
-        public int FileWatcherPath { get; set; }
+        public int AutoReturnSeconds { get; set; } = 300;
 
         /// <summary>
-        /// File watcher work thread
-        /// </summary>
-        public int FileWatcherThread { get; set; } = 1;
-
-        /// <summary>
-        /// File watcher file last write seconds.
-        /// </summary>
-        public int FileWatcherLastWrite { get; set; } = 30;
-
-        /// <summary>
-        /// Skip file size is zero
-        /// </summary>
-        public bool FileWatcherSkipZeroFile { get; set; } = true;
-
-        /// <summary>
-        /// Scan file watecher path interval(ms)
-        /// </summary>
-        public int ScanFileWatcherMillSeconds { get; set; } = 5000;
-
-        /// <summary>
-        /// Enable automatic return file to file pool
-        /// </summary>
-        public bool EnableAutoReturn { get; set; }
-
-        /// <summary>
-        /// Scan wait return file interval(ms)
+        /// 扫描过期的文件的时间,以毫秒为单位。默认3000毫秒
         /// </summary>
         public int ScanReturnFileMillSeconds { get; set; } = 3000;
 
-        /// <summary>
-        /// Reutrn file expired time(s), beyond this time will automatic return file
-        /// </summary>
-        public int AutoReturnSeconds { get; set; } = 300;
+
     }
 }

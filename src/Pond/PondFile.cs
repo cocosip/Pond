@@ -1,99 +1,99 @@
 ﻿using System;
+using System.IO;
 
 namespace Pond
 {
-    public class PondFile : IEquatable<PondFile>
+    public class PondFile : IComparable<PondFile>, IComparable
     {
         /// <summary>
-        /// The name of file pool
+        /// 文件池的名称
         /// </summary>
         public string FilePoolName { get; set; }
 
         /// <summary>
-        /// The index of worker
+        /// Worker id
         /// </summary>
-        public int Worker { get; set; }
+        public int WorkerId { get; set; }
 
         /// <summary>
-        /// File path
+        /// 文件的存储路径
         /// </summary>
-        public string Path { get; set; }
+        public string FilePath { get; set; }
 
         /// <summary>
-        /// File extension
+        /// 文件扩展名
         /// </summary>
         public string FileExt
         {
             get
             {
-                return System.IO.Path.GetExtension(Path);
+                if (!string.IsNullOrWhiteSpace(FilePath))
+                {
+                    return Path.GetExtension(FilePath);
+                }
+                return "";
             }
         }
-
 
         public PondFile()
         {
 
         }
 
-        public PondFile(string filePool, int worker) : this(filePool, worker, string.Empty)
+        public PondFile(string filePoolName, int workerId, string filePath)
         {
-
+            FilePoolName = filePoolName;
+            WorkerId = workerId;
+            FilePath = filePath;
         }
 
-        public PondFile(string filePool, int worker, string path)
+        public static bool operator ==(PondFile left, PondFile right)
         {
-            FilePoolName = filePool;
-            Worker = worker;
-            Path = path;
+            return IsEqual(left, right);
         }
-
-        /// <summary>
-        /// Clone
-        /// </summary>
-        /// <returns></returns>
-        public PondFile Clone()
+        public static bool operator !=(PondFile left, PondFile right)
         {
-            return new PondFile(FilePoolName, Worker, Path);
+            return !IsEqual(left, right);
         }
-
-        /// <summary>
-        /// Equals
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(PondFile other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            return FilePoolName == other.FilePoolName && Worker == other.Worker && Path == other.Path;
-        }
-
-        /// <summary>
-        /// Equals
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if (obj is null)
+            if (obj == null || obj.GetType() != GetType())
             {
                 return false;
             }
 
-            return obj is PondFile other && Equals(other);
+            var other = (PondFile)obj;
+
+            return FilePoolName == other.FilePoolName && WorkerId == other.WorkerId && FilePath == other.FilePath;
         }
 
-        /// <summary>
-        /// GetHashCode
-        /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
-            return StringComparer.InvariantCulture.GetHashCode(FilePoolName) | StringComparer.InvariantCulture.GetHashCode(Path) | Worker.GetHashCode();
+            return (FilePoolName + WorkerId.ToString() + FilePath).GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}@{1}", FilePoolName, WorkerId);
+        }
+
+        private static bool IsEqual(PondFile left, PondFile right)
+        {
+            if (left is null ^ right is null)
+            {
+                return false;
+            }
+            return left is null || left.Equals(right);
+        }
+
+        public int CompareTo(PondFile other)
+        {
+            return ToString().CompareTo(other.ToString());
+        }
+        public int CompareTo(object obj)
+        {
+            return ToString().CompareTo(obj.ToString());
+        }
+
     }
 }
