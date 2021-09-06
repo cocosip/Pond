@@ -6,23 +6,23 @@
     public enum WorkerStyle
     {
         /// <summary>
-        /// 默认类型
+        /// 默认,初始化的时候默认为Default
         /// </summary>
         Default = 1,
 
         /// <summary>
-        /// 只读类型
+        /// 只读
         /// </summary>
         ReadOnly = 2,
 
         /// <summary>
-        /// 只写类型
+        /// 只写
         /// </summary>
         WriteOnly = 4,
 
         /// <summary>
-        /// 混合类型,同时可读,可写
+        /// 同时读写
         /// </summary>
-        Mixed = 8
+        ReadWrite = 8
     }
 }

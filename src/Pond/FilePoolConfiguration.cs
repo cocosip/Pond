@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pond
 {
@@ -18,9 +16,19 @@ namespace Pond
         public string Path { get; set; }
 
         /// <summary>
-        /// 每个Worker下存储的最大的文件数量,当超过该值的时候,将不会进行写入。默认:5000个
+        /// 每个Queue下的存储的最大的文件数量,当超过该值时,将不会再写入。默认:5000
         /// </summary>
-        public int WorkerMaxFile { get; set; } = 5000;
+        public int QueueMaxFile { get; set; } = 10000;
+
+        /// <summary>
+        /// 用来进行读的Queue的数量,默认:3
+        /// </summary>
+        public int ReadQueueCount { get; set; } = 3;
+
+        /// <summary>
+        /// 用来写入的Queue的数量,默认:3
+        /// </summary>
+        public int WriteQueueCount { get; set; } = 3;
 
         /// <summary>
         /// 是否开启自动归还文件的操作,当开启之后,如果没有主动调用释放文件的方法,在超过指定的时间后<see cref="AutoReturnSeconds"/>,将会自动归还(重新放到队列中)。 默认:false
@@ -36,7 +44,6 @@ namespace Pond
         /// 扫描过期的文件的时间,以毫秒为单位。默认3000毫秒
         /// </summary>
         public int ScanReturnFileMillSeconds { get; set; } = 3000;
-
 
     }
 }

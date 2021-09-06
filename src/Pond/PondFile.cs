@@ -23,7 +23,7 @@ namespace Pond
         /// <summary>
         /// 文件扩展名
         /// </summary>
-        public string FileExt
+        public string Ext
         {
             get
             {
@@ -31,7 +31,7 @@ namespace Pond
                 {
                     return Path.GetExtension(FilePath);
                 }
-                return "";
+                return string.Empty;
             }
         }
 

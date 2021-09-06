@@ -5,12 +5,13 @@ namespace Pond
     [Serializable]
     public class WorkerKey : IComparable<WorkerKey>, IComparable
     {
-        public string Name { get; set; }
+        public string FilePoolName { get; set; }
         public int WorkerId { get; set; }
 
-        public WorkerKey(string name, int workerId)
+        public WorkerKey() { }
+        public WorkerKey(string filePoolName, int workerId)
         {
-            Name = name;
+            FilePoolName = filePoolName;
             WorkerId = workerId;
         }
 
@@ -31,16 +32,15 @@ namespace Pond
 
             var other = (WorkerKey)obj;
 
-            return Name == other.Name && WorkerId == other.WorkerId;
+            return FilePoolName == other.FilePoolName && WorkerId == other.WorkerId;
         }
         public override int GetHashCode()
         {
-            return (Name + WorkerId.ToString()).GetHashCode();
+            return (FilePoolName + WorkerId.ToString()).GetHashCode();
         }
-
         public override string ToString()
         {
-            return string.Format("{0}@{1}", Name, WorkerId);
+            return string.Format("{0}@{1}", FilePoolName, WorkerId);
         }
 
         private static bool IsEqual(WorkerKey left, WorkerKey right)
