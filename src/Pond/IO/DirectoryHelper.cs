@@ -2,14 +2,8 @@
 
 namespace Pond.IO
 {
-    /// <summary>
-    /// 目录工具类
-    /// </summary>
-    public static class DirectoryHelper
+    internal static class DirectoryHelper
     {
-        /// <summary>
-        /// 如果文件夹不存在,就创建新的文件夹
-        /// </summary>
         public static void CreateIfNotExists(string directory)
         {
             if (!Directory.Exists(directory))
@@ -18,11 +12,6 @@ namespace Pond.IO
             }
         }
 
-        /// <summary>
-        /// 如果文件夹存在,就删除(可递归删除)
-        /// </summary>
-        /// <param name="directory"></param>
-        /// <param name="recursive"></param>
         public static void DeleteIfExist(string directory, bool recursive = false)
         {
             if (Directory.Exists(directory))
@@ -31,27 +20,19 @@ namespace Pond.IO
             }
         }
 
-
-        /// <summary>
-        /// 拷贝文件夹和文件夹下的文件
-        /// </summary>
         public static void DirectoryCopy(string sourceDir, string targetDir)
         {
-
             CreateIfNotExists(targetDir);
             DirectoryInfo dir = new(sourceDir);
             FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //获取目录下（不包含子目录）的文件和子目录
             foreach (FileSystemInfo i in fileinfo)
             {
-                //判断是否文件夹
                 if (i is DirectoryInfo)
                 {
-                    //递归调用复制子文件夹
                     DirectoryCopy(i.FullName, Path.Combine(targetDir, i.Name));
                 }
                 else
                 {
-                    //拷贝文件,覆盖的形式
                     File.Copy(i.FullName, Path.Combine(targetDir, i.Name), true);
                 }
             }
