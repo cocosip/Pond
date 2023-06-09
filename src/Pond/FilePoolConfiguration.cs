@@ -16,19 +16,19 @@ namespace Pond
         public string Path { get; set; }
 
         /// <summary>
-        /// 每个Queue下的存储的最大的文件数量,当超过该值时,将不会再写入。默认:5000
+        /// 每个Worker下的存储的最大的文件数量,当超过该值时,将不会再写入。默认:5000
         /// </summary>
-        public int QueueMaxFile { get; set; } = 5000;
+        public int WorkerMaxFile { get; set; } = 5000;
 
         /// <summary>
-        /// 用来进行读的Queue的数量,默认:3
+        /// 用来进行读的Worker的数量,默认:3
         /// </summary>
-        public int ReadQueueCount { get; set; } = 3;
+        public int ReadWorkerCount { get; set; } = 3;
 
         /// <summary>
-        /// 用来写入的Queue的数量,默认:3
+        /// 用来写入的Worker的数量,默认:3
         /// </summary>
-        public int WriteQueueCount { get; set; } = 3;
+        public int WriteWorkerCount { get; set; } = 3;
 
         /// <summary>
         /// 是否开启自动归还文件的操作,当开启之后,如果没有主动调用释放文件的方法,在超过指定的时间后<see cref="AutoReturnSeconds"/>,将会自动归还(重新放到队列中)。 默认:false
@@ -56,14 +56,14 @@ namespace Pond
         public bool FileWatcherPath { get; set; }
 
         /// <summary>
+        /// 扫描文件监控目录的时间间隔,以毫秒为单位。默认:5000ms
+        /// </summary>
+        public int FileWatcherScanIntervalMillis { get; set; } = 5000;
+
+        /// <summary>
         /// 文件监控工作线程数,默认:3
         /// </summary>
         public int FileWatcherWorkThread { get; set; } = 3;
-
-        /// <summary>
-        /// 扫描文件监控目录的时间间隔,以毫秒为单位。默认:5000ms
-        /// </summary>
-        public int FileWatcherScanMillis { get; set; } = 5000;
 
         /// <summary>
         /// 是否跳过拷贝文件大小为0KB的文件。默认:true
@@ -71,10 +71,10 @@ namespace Pond
         public bool FileWatcherSkipZeroFile { get; set; } = true;
 
         /// <summary>
-        /// 文件监控最后写入文件的时间,以秒为单位。默认:30s
+        /// 文件监控,读取时对数据的延迟,以秒为单位。默认:30s
         /// 只有在当前时间30秒之前的文件才会被拷贝
         /// </summary>
-        public int FileWatcherDelaySeconds { get; set; } = 30;
+        public int FileWatcherReadDelaySeconds { get; set; } = 30;
 
     }
 }

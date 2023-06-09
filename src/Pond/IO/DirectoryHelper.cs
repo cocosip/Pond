@@ -12,7 +12,7 @@ namespace Pond.IO
             }
         }
 
-        public static void DeleteIfExist(string directory, bool recursive = false)
+        internal static void DeleteIfExist(string directory, bool recursive = false)
         {
             if (Directory.Exists(directory))
             {
@@ -20,7 +20,7 @@ namespace Pond.IO
             }
         }
 
-        public static void DirectoryCopy(string sourceDir, string targetDir)
+        internal static void DirectoryCopy(string sourceDir, string targetDir)
         {
             CreateIfNotExists(targetDir);
             DirectoryInfo dir = new(sourceDir);
